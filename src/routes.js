@@ -1,4 +1,5 @@
 const express = require('express');
+const AuthController = require('./controllers/AuthController');
 const routes = express.Router();
 
 const home = '';
@@ -16,5 +17,8 @@ routes.get('/testRaw', checkConnection.TestRaw);
 
 routes.post('/User', UserController.create);
 routes.put("/User", UserController.update);
+routes.delete("/User", UserController.delete);
+
+routes.post("/Login", AuthController.Login);
 
 module.exports = routes;

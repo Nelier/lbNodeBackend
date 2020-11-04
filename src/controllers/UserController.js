@@ -8,7 +8,7 @@ module.exports = {
 
         try {
             const data = await connection.
-                raw(`SELECT * FROM usuarios WHERE Email="${reqData.Email}" || login="${reqData.Login}" LIMIT 1`);
+                raw(`SELECT * FROM usuarios WHERE id=${reqData.id}" LIMIT 1`);
 
             if (data[0] == "") {
                 console.log("Não conseguiu selecionar pelo email ou login");
@@ -91,6 +91,19 @@ module.exports = {
     },
 
     async delete(req, res) {
-        return null;
+
+        const { id } = req.body;
+
+        try {
+
+            const response = await connection.raw(`DELETE FROM usuarios WHERE id="${id}"`);
+
+            return res.status(200).json({ Status: "Deletou o user!" });
+
+        } catch (error) {
+            console.log(error);
+            return res.status(401).json({ error: "Not Authorized!" });
+        }
+
     },
 };
